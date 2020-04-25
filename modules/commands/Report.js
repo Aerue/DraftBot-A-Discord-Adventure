@@ -19,7 +19,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
    if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
-   //if (true) {
+      //if (true) {
       playerManager.setPlayerAsOccupied(player);
 
       if (player.getScore() == 0) {
@@ -34,7 +34,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      //eventNumber = 29; //allow to select a specific event in testing purpose
+      //eventNumber = 39; //allow to select a specific event in testing purpose
 
       switch (true) {
          case time < DefaultValues.report.minimalTime:
@@ -173,7 +173,7 @@ function loadNothingToSayPossibility(eventManager) {
  */
 async function generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained, language, Text) {
 
-   console.log(eventNumber);
+   console.log("Event généré numéro : " + eventNumber);
    //load the event to display
    let event = eventManager.loadEvent(eventNumber);
    //display a message containing informations about the event and get this message back
@@ -263,7 +263,7 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
    player.addExperience(possibility.xpGained, message, language, Text)
 
    if (possibility.item == "true") { //have to give an item to the player
-      player = await playerManager.giveRandomItem(message, player);
+      player = await playerManager.giveRandomItem(message, player, false);
    }
    playerManager.updatePlayer(player);
 }

@@ -1,6 +1,7 @@
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
+
 let Text;
 
 /**
@@ -8,7 +9,7 @@ let Text;
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank, guildId) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -20,6 +21,21 @@ class Player extends Entity {
         this.rank = rank
         this.weeklyScore = weeklyScore;
         this.weeklyRank = weeklyRank;
+        this.guildId = guildId
+    }
+
+    /**
+     * Returns the guild id
+     */
+    getGuildId() {
+        return this.guildId;
+    }
+
+    /**
+     * Set the guild id
+     */
+    setGuildId(newGuildId) {
+        this.guildId = newGuildId;
     }
 
     /**
@@ -28,7 +44,7 @@ class Player extends Entity {
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
-        let xpToLevelUp = DefaultValues.xp[this.level + 1];
+        let xpToLevelUp = DefaultValues.xp[parseInt(this.level + 1)];
         return xpToLevelUp;
     }
 
@@ -39,8 +55,6 @@ class Player extends Entity {
      */
     getExperienceUsedToLevelUp() {
         let xpToLevelUp = DefaultValues.xp[this.level];
-        if (this.level > 100)
-            xpToLevelUp = 100;
         return xpToLevelUp;
     }
 
@@ -117,6 +131,7 @@ class Player extends Entity {
         let bonus = false;
         if (this.getLevel() == DefaultValues.fight.minimalLevel) {
             messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
+            bonus = true;
         }
         if (this.getLevel() % 10 == 0) {
             this.restoreHealthCompletely();
@@ -322,6 +337,23 @@ class Player extends Entity {
         return this.badges;
     }
 
+    /**
+     * Add a badge to the player.
+     * @param {String} - The badge
+     */
+    addBadge(badge) {
+        if (!this.badges.includes(badge)) {
+            if (this.badges.length === 0) {
+                this.badges += badge;
+            } else {
+                this.badges += `-` + badge;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * Update the timecode matching the last time the player has been see
@@ -334,6 +366,17 @@ class Player extends Entity {
         this.lastReport = parseInt(time) + parseInt(Tools.convertMinutesInMiliseconds(malusTime)) + parseInt(realMalus);
     }
 
+    /**
+     * get the username of a player
+     * @param {*} client - The instance of the bot
+     * @returns {String} - The username
+     */
+    getPseudo(client) {
+        if (client.users.get(this.discordId) != null) {
+            return client.users.get(this.discordId).username;
+        }
+        return null;
+    }
 
     /**
      * Removes the specified amount of points from the Player's score.

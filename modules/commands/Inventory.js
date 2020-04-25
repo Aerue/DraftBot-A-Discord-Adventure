@@ -26,7 +26,10 @@ const inventoryCommand = async function (message, args, client) {
         let playerId;
         player = await getAskedPlayer(playerId, player, playerManager, message, args); //recupération de l'id du joueur demandé
         inventory = await inventoryManager.getInventoryById(player.discordId)
-        pseudo = getPlayerPseudo(client, player);
+        let pseudo = player.getPseudo(client);
+        if (pseudo == null) {
+            pseudo = Text.player.unknownPlayer
+        }
         if (askedPlayerIsInvalid(player))
             return message.channel.send(Text.commands.inventory.errorMain + message.author.username + Text.commands.inventory.errorInv)
     } else {
@@ -37,22 +40,7 @@ const inventoryCommand = async function (message, args, client) {
 }
 
 
-/**
- * get the username of a player
- * @param {*} client - The instance of the bot
- * @param {*} player - The player that we need the username
- * @returns {String} - The username
- */
-function getPlayerPseudo(client, player) {
-    let pseudo;
-    if (client.users.get(player.discordId) != null) {
-        pseudo = client.users.get(player.discordId).username;
-    }
-    else {
-        pseudo = Text.commands.top.unknownPlayer;
-    }
-    return pseudo;
-}
+
 
 
 /**
@@ -112,7 +100,6 @@ const generateInventoryMessage = async function (message, pseudo, inventory) {
     let objectManager = new ObjectManager();
 
     //chargement des objets de l'inventaire
-    console.log(inventory.weaponId)
     let weapon = equipementManager.getWeaponById(inventory.weaponId);
     let armor = equipementManager.getArmorById(inventory.armorId);
     let object = objectManager.getObjectById(inventory.objectId);
