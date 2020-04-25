@@ -169,7 +169,7 @@ function completelyHealGuildMembers(members, message) {
 function partiallyHealGuildMembers(members, message) {
     let healthAdded = new Array(members.length);
     for (let i = 0; i < members.length; ++i) {
-        var healthToAdd = Tools.generateRandomNumber(1, 15);
+        let healthToAdd = Tools.generateRandomNumber(1, 15);
         healthAdded[i] = healthToAdd;
         members[i].addHealthPoints(healthToAdd, message, language);
         playerManager.updatePlayer(members[i]);
@@ -182,7 +182,7 @@ function partiallyHealGuildMembers(members, message) {
  * @param {*} members - the array of members that will get healed
  */
 function healStateOfGuildMembers(members, message) {
-    var allowedStates = ":dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2:"
+    let allowedStates = ":dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2:"
     for (let i in members) {
         if (allowedStates.includes(members[i].getEffect())) {
             if (!playerManager.displayTimeLeftProfile(members[i], message, language).includes(":hospital:")) { //the player is not cured

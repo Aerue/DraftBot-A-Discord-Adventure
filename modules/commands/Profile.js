@@ -131,7 +131,7 @@ async function displayBadges(player, msg) {
     if (player.getBadges() != "") {
         let str = player.getBadges();
         str = str.split('-');
-        for (var i = 0; i < str.length; i++) {
+        for (let i = 0; i < str.length; i++) {
             await msg.react(str[i]);
         }
     }

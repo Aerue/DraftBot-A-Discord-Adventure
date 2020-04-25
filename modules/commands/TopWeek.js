@@ -281,19 +281,19 @@ function getRequiredPageNumber(args) {
  */
 function getResetDate() {
     //Creating Dates
-    var now = new Date(); //The current date
-    var dateOfReset = new Date(); // The next Sunday
+    let now = new Date(); //The current date
+    let dateOfReset = new Date(); // The next Sunday
     dateOfReset.setDate(now.getDate() + (0 + (7 - now.getDay())) % 7); // Calculating next Sunday
     dateOfReset.setHours(22, 59, 59); // Defining hours, min, sec to 23, 59, 59
     //Parsing dates to moment
-    var nowMoment = new moment(now);
-    var momentOfReset = new moment(dateOfReset);
+    let nowMoment = new moment(now);
+    let momentOfReset = new moment(dateOfReset);
     //Creating the date difference string.
     const diffDays = momentOfReset.diff(nowMoment, 'days');
     const diffHours = momentOfReset.diff(nowMoment, 'hours');
     const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
     //Converting into a String
-    var parsedTime = " " + diffDays + Text.commands.TopWeek.days + " " +
+    let parsedTime = " " + diffDays + Text.commands.TopWeek.days + " " +
         (diffHours - diffDays * 24) + Text.commands.TopWeek.hours + " " +
         (diffMinutes - diffHours * 60) + Text.commands.TopWeek.minutes + ".";
     return parsedTime;
