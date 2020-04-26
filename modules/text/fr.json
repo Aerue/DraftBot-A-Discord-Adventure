@@ -206,7 +206,7 @@
       "chosenOpponentNotEnoughSkill2": "** pour combattre ! ",
       "chosenOpponentDontPlay": ", il semblerait que cette personne n'aie pas encore commencé l'aventure !",
       "menuStart": ":crossed_swords:  | **C'est au tour de ",
-      "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque puissante\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
+      "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:axe: - Lancer une attaque puissante\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "endIntroStart": " | **",
       "statusIntro": ":crossed_swords: | **Etat actuel du combat \n\n",
       "statusPoints": "**\n:blue_heart: ",
@@ -318,6 +318,38 @@
           "6": " ** lance une mauvaise attaque puissante ! `Vitesse réduite de 10 %`",
           "7": " ** utilise une attaque puissante ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
           "8": " ** choisit une attaque puissante !  Mauvaise initiative. `Vitesse réduite de 10 %`"
+        }
+      },
+      "ultimateAttack": {
+        "ok": {
+          "1": " ** effectue une attaque ultime ! Parfaitement réalisée !",
+          "2": " ** effectue une attaque ultime ! Elle est magnifique !",
+          "3": " ** effectue une superbe attaque ultime ! Parfaitement réalisée !",
+          "4": " ** effectue une attaque ultime ! Incroyablement réussie !",
+          "5": " ** effectue une attaque ultime ! C'était risqué mais ça passe !",
+          "6": " ** lance une bonne attaque ultime !",
+          "7": " ** utilise une attaque ultime ! Magistrale !",
+          "8": " ** choisit une attaque ultime !  Très bonne initiative."
+        },
+        "load": {
+          "1": " ** charge une attaque ultime...",
+          "2": " ** se prépare à frapper de toute ses forces, ça va faire mal !",
+          "3": " ** concentre son énergie...",
+          "4": " ** prépare une attaque ultime...",
+          "5": " ** recharge son pouvoir de frappe...",
+          "6": " ** mobilise toutes ses années d'entrainement pour l'attaque la plus puissante qu'il puisse réaliser.",
+          "7": " ** charge au maximum son energie, la frappe sera terrible !",
+          "8": " ** choisit une attaque ultime !  La suite au prochain épisode ! "
+        },
+        "ko": {
+          "1": " ** effectue une attaque ultime ! C'est raté !",
+          "2": " ** effectue une attaque ultime ! L'attaque échoue lamentablement !",
+          "3": " ** effectue une mauvaise attaque ultime ! Un manque cruel de technique pour le joueur français !",
+          "4": " ** effectue une attaque ultime ! Quelle erreur !",
+          "5": " ** effectue une attaque ultime ! C'était risqué et ça n'est pas passé !",
+          "6": " ** lance une mauvaise attaque ultime !",
+          "7": " ** utilise une attaque ultime ! Un choix peu judicieux !",
+          "8": " ** choisit une attaque ultime !  Mauvaise initiative."
         }
       }
     },

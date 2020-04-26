@@ -206,7 +206,7 @@
             "chosenOpponentNotEnoughSkill2": "** to proceed to the fights ! ",
             "chosenOpponentDontPlay": ", it seems the player you asked for hasn't started the adventure yet!",
             "menuStart": ":crossed_swords: | **It's ",
-            "menuEnd": " 's turn to play**\n\n:crossed_swords: - Use a basic attack \n:dagger:- Use a quick attack\n:bomb:- Use an powerful attack\n:shield:- Prepare to shield yourself\n:rocket:- Prepare to dodge",
+            "menuEnd": " 's turn to play**\n\n:crossed_swords: - Use a basic attack \n:dagger:- Use a quick attack\n:axe:- Use an powerful attack\n:bomb:- Use an ultimate attack\n:shield:- Prepare to shield yourself\n:rocket:- Prepare to dodge",
             "endIntroStart": " | **",
             "statusIntro": ":crossed_swords: | **Current battle state\n\n",
             "statusPoints": "**\n:blue_heart: ",
@@ -291,7 +291,7 @@
             "powerfulAttack": {
                 "ok": {
                     "1": " ** performs an powerful attack! Perfectly executed! `Speed reduced by 25%`",
-                    "2": " ** performs an powerful attack! Magnificent! `Speed reduced by 25%",
+                    "2": " ** performs an powerful attack! Magnificent! `Speed reduced by 25%`",
                     "3": " ** performs a great powerful attack! Perfectly executed! `Speed reduced by 25%`",
                     "4": " ** performs an powerful attack! Incredibly well done! `Speed reduced by 25%`",
                     "5": " ** performs an powerful attack! It was risky but worth it! `Speed reduced by 25%`",
@@ -318,6 +318,38 @@
                     "6": " ** launches a bad powerful attack! `Speed reduced by 10%`",
                     "7": " ** uses an powerful attack! Not that good of a choice! `Speed reduced by 10%`",
                     "8": " ** opts for an powerful attack! Bad initiative. `Speed reduced by 10%`"
+                }
+            },
+            "ultimateAttack": {
+                "ok": {
+                    "1": " ** performs an ultimate attack! Perfectly executed!",
+                    "2": " ** performs an ultimate attack! Magnificent!",
+                    "3": " ** performs a great ultimate attack! Perfectly executed!",
+                    "4": " ** performs an ultimate attack! Incredibly well done! ",
+                    "5": " ** performs an ultimate attack! It was risky but worth it!",
+                    "6": " ** lanches a great ultimate attack!",
+                    "7": " ** uses an ultimate attack! How grand! ",
+                    "8": " ** opts for an ultimate attack! Really good initiative. "
+                },
+                "ko": {
+                    "1": " ** makes an ultimate attack! It's a failure!",
+                    "2": " ** makes an ultimate attack! The attack failed miserably!",
+                    "3": " ** makes a bad ultimate attack! A cruel lack of technique from our foolish fiend!",
+                    "4": " ** performs an ultimate attack! What a mistake!",
+                    "5": " ** performs an ultimate attack! It was risky and didn't succeed!",
+                    "6": " ** launches a bad ultimate attack!",
+                    "7": " ** uses an ultimate attack! Not that good of a choice!",
+                    "8": " ** opts for an ultimate attack! Bad initiative."
+                },
+                "load": {
+                    "1": " ** is preparing a ultimate attack...",
+                    "2": " ** is creating a feeling that you're going to have a bad time...",
+                    "3": " ** is concocting a strike of ultimate force and precision.",
+                    "4": " ** is preparing a strike of supreme might and dexterity.",
+                    "5": " ** is preparing an even more ultimate than ultimate attack!",
+                    "6": " ** is imbuing his blade with the power of god and anime.",
+                    "7": " ** is concentrating his entire might on the next strike",
+                    "8": " ** is preparing to unleash hell upon you."
                 }
             }
         },
@@ -501,24 +533,24 @@
             "notInAGuild": " is not in any guild."
         },
         "guildDaily": {
-          "rewardTitle": "Guild's rewards ",
-          "personalXPIntro": ":star: | Guild's members received `",
-          "XPEnd": " xp points`.",
-          "guildXPIntro": ":star: | Guild has received `",
-          "moneyIntro": ":moneybag: | Guild's members received `",
-          "moneyEnd": " coins`.",
-          "item": ":gift: | Guild's members received a random object.",
-          "badge": ":gem: | Guild's members received a badge. Members who already had it received a random object.",
-          "fullHeal": ":heartpulse: | Guild's members were fully healed.",
-          "partialHeal": "Guild's members were partly healed :",
-          "alterationHeal": ":hospital: | Guild's members' statuses were reset.",
-          "tooQuickError": ", the daily guild reward is only available 22 hours after the last time it was asked or a user joined the guild. Time before next reward: **",
-          "tooQuickErrorEnd": "**"
+            "rewardTitle": "Guild's rewards ",
+            "personalXPIntro": ":star: | Guild's members received `",
+            "XPEnd": " xp points`.",
+            "guildXPIntro": ":star: | Guild has received `",
+            "moneyIntro": ":moneybag: | Guild's members received `",
+            "moneyEnd": " coins`.",
+            "item": ":gift: | Guild's members received a random object.",
+            "badge": ":gem: | Guild's members received a badge. Members who already had it received a random object.",
+            "fullHeal": ":heartpulse: | Guild's members were fully healed.",
+            "partialHeal": "Guild's members were partly healed :",
+            "alterationHeal": ":hospital: | Guild's members' statuses were reset.",
+            "tooQuickError": ", the daily guild reward is only available 22 hours after the last time it was asked or a user joined the guild. Time before next reward: **",
+            "tooQuickErrorEnd": "**"
         }
     },
-  "player": {
-    "unknownPlayer": "Player 404"
-  },
+    "player": {
+        "unknownPlayer": "Player 404"
+    },
     "commandReader": {
         "resetIsNowTitle": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server!",
         "resetIsNowFooter": "\n\n:clock12: The game will resume in less than 5 minutes!",
