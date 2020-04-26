@@ -5,6 +5,7 @@ const moment = require("moment");
 const Discord = require("discord.js");
 let Text;
 let language;
+let loading = false;
 
 
 /**
@@ -247,10 +248,13 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
             if (reaction.users.last() === actualUser) { //On check que c'est le bon joueur qui réagis
                 playerHasResponded = false;
                 let attackPower;
+                if (reaction.emoji.name != "💣") {
+                    loading = false
+                }
                 switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
                         // 75% des points d'attaque sont utilisés
-                        // 30% des points de défense sont utilisés
+                        // 20% des points de défense sont utilisés
                         // Taux de réussite de 30% qui monte à 95% sur un adversaire plus lent
                         ({ defenderPower, attackerPower } = quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
@@ -261,13 +265,16 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                         // En plus des 60% de réussite, 30% de chance de réussite partielle sur un adversaire plus rapide
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
-                    case "💣": //attaque puissante
+                    case "🪓": //attaque puissante
                         // 125% ou 200% des points d'attaque sont utilisés
                         // 100% des points de défense sont utilisés
                         // Diminue la vitesse de 10 ou 25 % pour le prochain tour
                         // 5% de réussite totale sur un adversaire plus rapide et 40% de réussite partielle
                         // 30% de réussite totale sur un adversaire plus lent et 70% de réusite partielle
                         ({ defenderPower, attackerPower } = powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
+                        break;
+                    case "💣": //attaque ultime
+                        ({ defenderPower, attackerPower } = ultimateAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "🛡": //defendre
                         // augmente la défense
@@ -556,6 +563,50 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
 }
 
 /**
+ * allow to perform a ultimate attack
+ * @param {*} attackPower
+ * @param {*} player - The first player
+ * @param {*} opponentPlayer
+ * @param {*} actuelPlayer
+ * @param {*} defenderPower
+ * @param {*} attackerPower
+ * @param {*} attacker - The first player
+ * @param {*} actualUser - The user that is currently playing
+ * @param {*} reaction
+ * @param {*} message
+ */
+function ultimateAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
+    let messageAttaqueUltime = "";
+    let random = Tools.generateRandomNumber(1, 8);
+    if(loading == false){
+        loading = true;
+        messageAttaqueUltime = Text.commands.fight.ultimateAttack.loadingEmoji + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.ultimateAttack.load[random];
+        message.channel.send(messageAttaqueUltime);
+        return { defenderPower, attackerPower };
+    }
+    let succes = Tools.generateRandomNumber(1, 100);
+    let powerchanger = 0;
+    if (opponentPlayer.speed < actuelPlayer.speed) {
+        if (succes <= 60) { // total success
+            powerchanger = 1;
+        }
+    } else {
+        if (succes <= 10) { // total success
+            powerchanger = 1;
+        }
+    }
+    if (powerchanger == 1) {
+        ({ defenderPower, attackerPower } = dividePlayerPower(attacker, actualUser, defenderPower, attackerPower));
+        messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.ultimateAttack.ok[random];
+    }
+    else {
+        messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.ultimateAttack.ko[random];
+    }
+    message.channel.send(messageAttaqueUltime);
+    return { defenderPower, attackerPower };
+}
+
+/**
  * Allow to perform a quick attack
  * @param {*} attackPower
  * @param {*} player - The first player
@@ -572,7 +623,7 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
     let succes = Tools.generateRandomNumber(1, 100);
     let powerchanger = 0.1;
     if (opponentPlayer.speed > actuelPlayer.speed) {
-        if (succes <= 30) { // total success
+        if (succes <= 20) { // total success
             powerchanger = 0.75;
         }
     } else {
@@ -621,6 +672,24 @@ function updatePlayerPower(attacker, actualUser, defenderPower, degats, attacker
     return { defenderPower, attackerPower };
 }
 
+
+/**
+ *
+ * @param {*} attacker - The first player
+ * @param {*} actualUser - The user that is currently playing
+ * @param {*} defenderPower
+ * @param {*} attackerPower
+ */
+function dividePlayerPower(attacker, actualUser, defenderPower, attackerPower) {
+    if (attacker == actualUser) {
+        Math.round(defenderPower *= 0.3);
+    }
+    else {
+        Math.round(attackerPower *= 0.3)
+    }
+    return { defenderPower, attackerPower };
+}
+
 /**
  *
  * @param {*} message
@@ -630,6 +699,7 @@ async function displayFightMenu(message, actualUser) {
     let lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
     await lastMessageFromBot.react("⚔");
     await lastMessageFromBot.react("🗡");
+    await lastMessageFromBot.react("🪓");
     await lastMessageFromBot.react("💣");
     await lastMessageFromBot.react("🛡");
     await lastMessageFromBot.react("🚀");
@@ -788,6 +858,9 @@ const reactionFightIsCorrect = function (reaction, user) {
         contains = true;
     }
     if (reaction.emoji.name == "🗡" && !user.bot) {
+        contains = true;
+    }
+    if (reaction.emoji.name == "🪓" && !user.bot) {
         contains = true;
     }
     if (reaction.emoji.name == "💣" && !user.bot) {

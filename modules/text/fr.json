@@ -321,6 +321,7 @@
         }
       },
       "ultimateAttack": {
+        "loadingEmoji": ":arrows_counterclockwise:",
         "ok": {
           "1": " ** effectue une attaque ultime ! Parfaitement réalisée !",
           "2": " ** effectue une attaque ultime ! Elle est magnifique !",

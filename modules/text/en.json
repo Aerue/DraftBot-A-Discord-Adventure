@@ -321,6 +321,7 @@
                 }
             },
             "ultimateAttack": {
+                "loadingEmoji": ":arrows_counterclockwise:",
                 "ok": {
                     "1": " ** performs an ultimate attack! Perfectly executed!",
                     "2": " ** performs an ultimate attack! Magnificent!",
